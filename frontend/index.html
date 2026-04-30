@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Ağacı Görselleştirici</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; }
+        #left-panel, #right-panel { width: 50%; padding: 20px; box-sizing: border-box; }
+        #html-input { width: 100%; height: 300px; }
+    </style>
+</head>
+<body>
+    <div id="left-panel">
+        <h2>HTML Girdisi</h2>
+        <textarea id="html-input" placeholder="Buraya HTML kodunuzu yapıştırın..."></textarea>
+        <button id="parse-btn">Ağaç Oluştur (C Motoruna Gönder)</button>
+    </div>
+    <div id="right-panel">
+        <h2>DOM Ağacı</h2>
+        <div id="tree-container">
+            <!-- Ağaç burada görselleştirilecek -->
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
