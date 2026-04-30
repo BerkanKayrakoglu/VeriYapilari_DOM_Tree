@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # C Dilinde yazılacak olan Core (Ana) Veri Yapıları Motoru
+  c_backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: dom_tree_core
+    volumes:
+      - ./src:/app/src
+    command: ["echo", "C Motoru Hazırlanıyor..."]
+    # İleride C kodumuz bir web servisine veya API'ye dönüştüğünde port açacağız
+    # ports:
+    #   - "8080:8080"
+
+  # Mustafa'nın yazacağı Ön Yüz (Frontend)
+  frontend:
+    image: nginx:alpine
+    container_name: dom_tree_ui
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - c_backend
+
+  # İleride eklenecek olan AI (Yapay Zeka) Sentetik Veri Servisi
+  ai_service:
+    image: python:3.10-slim
+    container_name: dom_tree_ai
+    command: ["echo", "Yapay Zeka servisi beklemede..."]
