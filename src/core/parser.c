@@ -209,3 +209,36 @@ Node** dom_dfs(DOM* dom, int* count) {
     }
     return result;
 }
+
+// Sibling (kardes) dugumleri bul
+Node** dom_get_siblings(Node* node, int* count) {
+    if (!node || !node->parent) {
+        *count = 0;
+        return NULL;
+    }
+    Node* parent = node->parent;
+    int sib_count = parent->child_count - 1;
+    if (sib_count <= 0) {
+        *count = 0;
+        return NULL;
+    }
+    Node** siblings = (Node**)malloc(sizeof(Node*) * sib_count);
+    int idx = 0;
+    for (int i = 0; i < parent->child_count; i++) {
+        if (parent->children[i] != node) {
+            siblings[idx++] = parent->children[i];
+        }
+    }
+    *count = sib_count;
+    return siblings;
+}
+
+// Rekursif alt agac (subtree) toplam dugum sayisi
+int dom_subtree_node_count(Node* node) {
+    if (!node) return 0;
+    int total = 1;
+    for (int i = 0; i < node->child_count; i++) {
+        total += dom_subtree_node_count(node->children[i]);
+    }
+    return total;
+}

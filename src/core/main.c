@@ -59,6 +59,25 @@ int main() {
     printf("\n--- Agac Derinligi ---\n");
     printf("Derinlik: %d\n", dom_depth(dom->root));
 
+    printf("\n--- Alt Agac Analizi (Subtree Count) ---\n");
+    printf("Toplam dugum sayisi (root): %d\n", dom_subtree_node_count(dom->root));
+    Node* body_node = dom_get_by_id(dom, "main");
+    if (body_node) {
+        printf("body alt agacindaki dugum sayisi: %d\n", dom_subtree_node_count(body_node));
+    }
+
+    printf("\n--- Kardes Dugumleri Bulma (Siblings) ---\n");
+    Node* baslik_node = dom_get_by_id(dom, "baslik");
+    if (baslik_node) {
+        int sib_count = 0;
+        Node** siblings = dom_get_siblings(baslik_node, &sib_count);
+        printf("<%s id=\"%s\"> dugumunun %d kardesi var:\n", baslik_node->tag, baslik_node->id ? baslik_node->id : "", sib_count);
+        for (int i = 0; i < sib_count; i++) {
+            printf("  kardes: <%s class=\"%s\">\n", siblings[i]->tag, siblings[i]->class_name ? siblings[i]->class_name : "");
+        }
+        free(siblings);
+    }
+
     printf("\n--- JSON Ciktisi ---\n");
     char json_buf[65536];
     int pos = 0;

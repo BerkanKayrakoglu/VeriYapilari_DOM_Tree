@@ -24,5 +24,7 @@ int   dom_depth(Node* node);
 void  dom_print(Node* root, int level);
 Node** dom_bfs(DOM* dom, int* count);
 Node** dom_dfs(DOM* dom, int* count);
+Node** dom_get_siblings(Node* node, int* count);
+int   dom_subtree_node_count(Node* node);
 
 #endif // PARSER_H
