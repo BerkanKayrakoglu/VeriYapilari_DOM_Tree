@@ -1,7 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <winsock2.h>
+#ifdef _WIN32
+    #include <winsock2.h>
+    #pragma comment(lib, "ws2_32.lib")
+    typedef int socklen_t;
+#else
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <unistd.h>
+    #include <arpa/inet.h>
+    #define SOCKET int
+    #define INVALID_SOCKET -1
+    #define closesocket close
+#endif
 #include "parser.h"
 
 // Yazar: Mustafa Ozturk
@@ -45,8 +57,13 @@ void send_response(SOCKET client_fd, const char* status, const char* body) {
 }
 
 int main() {
+#ifdef _WIN32
     WSADATA wsa;
-    WSAStartup(MAKEWORD(2,2), &wsa);
+    if (WSAStartup(MAKEWORD(2,2), &wsa) != 0) {
+        printf("Winsock baslatilamadi.\n");
+        return 1;
+    }
+#endif
 
     SOCKET server_fd = socket(AF_INET, SOCK_STREAM, 0);
     int opt = 1;
@@ -94,6 +111,8 @@ int main() {
         printf("Istek islendi.\n");
     }
 
+#ifdef _WIN32
     WSACleanup();
+#endif
     return 0;
 }
