@@ -5,23 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOM Ağacı Görselleştirici</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; }
-        #left-panel, #right-panel { width: 50%; padding: 20px; box-sizing: border-box; }
-        #html-input { width: 100%; height: 300px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; background: #1e1e1e; color: #d4d4d4; }
+        
+        header { background: #007acc; padding: 12px 20px; }
+        header h1 { color: white; font-size: 18px; }
+        
+        .toolbar { display: flex; gap: 10px; padding: 10px 20px; background: #252526; border-bottom: 1px solid #3c3c3c; align-items: center; }
+        .toolbar input { flex: 1; padding: 6px 10px; background: #3c3c3c; border: 1px solid #555; color: #d4d4d4; border-radius: 4px; }
+        .toolbar button { padding: 6px 14px; background: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .toolbar button:hover { background: #005f9e; }
+
+        .panels { display: flex; flex: 1; overflow: hidden; }
+        
+        #left-panel { width: 45%; display: flex; flex-direction: column; border-right: 2px solid #3c3c3c; }
+        #left-panel h2 { padding: 10px 15px; background: #252526; font-size: 14px; border-bottom: 1px solid #3c3c3c; }
+        #html-input { flex: 1; padding: 15px; background: #1e1e1e; color: #9cdcfe; font-family: monospace; font-size: 13px; border: none; resize: none; outline: none; }
+        .btn-parse { padding: 10px; background: #007acc; color: white; border: none; cursor: pointer; font-size: 14px; }
+        .btn-parse:hover { background: #005f9e; }
+
+        #right-panel { flex: 1; display: flex; flex-direction: column; }
+        #right-panel h2 { padding: 10px 15px; background: #252526; font-size: 14px; border-bottom: 1px solid #3c3c3c; }
+        #tree-container { flex: 1; overflow: auto; padding: 15px; }
+
+        .tree-node { margin: 2px 0; }
+        .tree-node-header { display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 6px; border-radius: 3px; user-select: none; }
+        .tree-node-header:hover { background: #2a2d2e; }
+        .tree-node-header.highlighted { background: #264f78 !important; border: 1px solid #007acc; }
+        .toggle { font-size: 11px; width: 14px; color: #888; }
+        .tag-name { color: #4ec9b0; font-family: monospace; font-size: 13px; }
+        .attr-id { color: #9cdcfe; font-family: monospace; font-size: 12px; }
+        .attr-class { color: #ce9178; font-family: monospace; font-size: 12px; }
+        .tree-children { margin-left: 20px; border-left: 1px solid #3c3c3c; padding-left: 5px; }
+
+        #status { padding: 6px 20px; background: #007acc; color: white; font-size: 12px; }
     </style>
 </head>
 <body>
-    <div id="left-panel">
-        <h2>HTML Girdisi</h2>
-        <textarea id="html-input" placeholder="Buraya HTML kodunuzu yapıştırın..."></textarea>
-        <button id="parse-btn">Ağaç Oluştur (C Motoruna Gönder)</button>
+    <header>
+        <h1>🌳 DOM Ağacı Görselleştirici — Veri Yapıları Projesi</h1>
+    </header>
+
+    <div class="toolbar">
+        <input type="text" id="search-input" placeholder='id="header" veya class="container" ile arama yapın...' />
+        <button onclick="search()">Ara</button>
+        <button onclick="clearHighlight()">Temizle</button>
     </div>
-    <div id="right-panel">
-        <h2>DOM Ağacı</h2>
-        <div id="tree-container">
-            <!-- Ağaç burada görselleştirilecek -->
+
+    <div class="panels">
+        <div id="left-panel">
+            <h2>📝 HTML Girdisi</h2>
+            <textarea id="html-input" placeholder="Buraya HTML kodunuzu yapıştırın...">
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body id="main">
+    <div class="container">
+      <h1 id="baslik"></h1>
+      <p class="container"></p>
+    </div>
+  </body>
+</html></textarea>
+            <button class="btn-parse" onclick="parse()">▶ Ağaç Oluştur</button>
+        </div>
+
+        <div id="right-panel">
+            <h2>🌲 DOM Ağacı</h2>
+            <div id="tree-container">
+                <p style="color:#888; padding:20px;">HTML girin ve "Ağaç Oluştur" butonuna tıklayın.</p>
+            </div>
         </div>
     </div>
+
+    <div id="status">Hazır</div>
+
     <script src="app.js"></script>
 </body>
 </html>
