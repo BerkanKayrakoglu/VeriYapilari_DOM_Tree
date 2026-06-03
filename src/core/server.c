@@ -16,7 +16,7 @@
 #endif
 #include "parser.h"
 
-// Yazar: Mustafa Ozturk
+// Yazar: Mustafa Ozturk ve Berkan Kayrakoglu
 #define BUFFER_SIZE 65536
 
 void node_to_json(Node* node, char* buf, int* pos) {
