@@ -32,10 +32,10 @@ Hocamızın belirttiği **Eşzamanlılık ve Mikroservis Yaklaşımı (B.1)** ge
 
 ```mermaid
 graph TD
-    User([Kullanıcı / Web Tarayıcı]) -->|HTTP Port 3000| FE[Frontend: Nginx]
-    User -->|HTTP POST /parse Port 8080| BE[C Backend API: dom_tree_core]
-    BE -->|Veri İşleme / DOM Tree| DB[(Bellek İçi DOM Ağacı)]
-    AI[AI Service: python-slim] <-->|Port 5001| BE
+    User["Kullanıcı / Web Tarayıcı"] -->|HTTP Port 3000| FE["Frontend (Nginx)"]
+    User -->|HTTP POST /parse Port 8080| BE["C Backend API (dom_tree_core)"]
+    BE -->|Veri İşleme / DOM Tree| DB["Bellek İçi DOM Ağacı"]
+    AI["AI Service (python-slim)"] --- BE
 ```
 
 ---
@@ -69,49 +69,49 @@ Ağaç üzerinde Genişlik Öncelikli Arama (BFS) yapabilmek amacıyla tasarlanm
 
 ```mermaid
 classDiagram
+    DOM *-- Node
+    DOM *-- HashTable
+    HashTable *-- HashEntry
+    HashEntry *-- Node
+    Stack *-- Node
+    Queue *-- Node
+
     class Node {
-        +char* tag
-        +char* id
-        +char* class_name
-        +Node* parent
-        +Node** children
+        +char_ptr tag
+        +char_ptr id
+        +char_ptr class_name
+        +Node_ptr parent
+        +Node_ptr_ptr children
         +int child_count
         +int child_capacity
     }
 
     class DOM {
-        +Node* root
-        +HashTable* ht
+        +Node_ptr root
+        +HashTable_ptr ht
     }
 
     class HashTable {
-        +HashEntry* buckets[256]
+        +HashEntry_ptr buckets
     }
 
     class HashEntry {
-        +char* key
-        +Node* value
-        +HashEntry* next
+        +char_ptr key
+        +Node_ptr value
+        +HashEntry_ptr next
     }
 
     class Stack {
-        +Node* data[1024]
+        +Node_ptr data
         +int top
     }
 
     class Queue {
-        +Node* data[1024]
+        +Node_ptr data
         +int front
         +int rear
         +int size
     }
-
-    DOM "1" *-- "1" Node : root
-    DOM "1" *-- "1" HashTable : ht
-    HashTable "1" *-- "256" HashEntry : buckets
-    HashEntry "1" *-- "1" Node : value
-    Stack "1" *-- "1024" Node : data
-    Queue "1" *-- "1024" Node : data
 ```
 
 ---
