@@ -50,12 +50,12 @@ classDiagram
     }
 
     class Stack {
-        +Node* data[1024]
+        +Node* data[1000]
         +int top
     }
 
     class Queue {
-        +Node* data[1024]
+        +Node* data[1000]
         +int front
         +int rear
         +int size

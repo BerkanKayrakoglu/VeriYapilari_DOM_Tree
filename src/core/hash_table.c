@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
+
 // Hash Table implementasyonu
 
 static unsigned int hash_func(const char* key) {
