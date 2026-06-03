@@ -7,6 +7,7 @@
 #include <ctype.h>
 
 
+// Yazar: Mustafa Ozturk
 // HTML Parser implementasyonu
 
 // Bosluk temizle

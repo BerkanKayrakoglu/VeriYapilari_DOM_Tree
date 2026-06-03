@@ -6,9 +6,8 @@ Bu proje, saf metin halindeki (raw string) bir HTML dokümanını C dilinde ayr�
 
 Bu depo, projenin geliştirme ve takım içi koordinasyon merkezi olarak kullanılmaktadır. Takım üyeleri ve görev dağılımları aşağıda belirtilmiştir:
 
-*   **@bkayr** : Sistem mimarisi, Docker/DevOps süreçleri ve C - Frontend haberleşme altyapısı.
-*   **@hamzayavas** : C dilinde Temel Veri Yapılarının (N-ary Tree, Stack, Queue, Hash Table) sıfırdan kodlanması.
-*   **@MstfOzturk16** : Frontend (Kullanıcı Arayüzü) geliştirilmesi ve ayrıştırma (parsing) algoritmalarının entegrasyonu.
+*   **@bkayr** (Berkan Kayrakoglu): Sistem mimarisi, Docker/DevOps süreçleri ve C - Frontend haberleşme altyapısı.
+*   **@MstfOzturk16** (Mustafa Ozturk): C dilinde Temel Veri Yapılarının (N-ary Tree, Stack, Queue, Hash Table) sıfırdan kodlanması, Frontend (Kullanıcı Arayüzü) geliştirilmesi ve ayrıştırma (parsing) algoritmalarının entegrasyonu.
 
 ### 📝 Ara Rapor: Bugüne Kadar Alınan Kararlar ve Gelişmeler
 Proje başlangıcından itibaren takım olarak aşağıdaki kararlar alınmış ve altyapı çalışmaları tamamlanmıştır:
@@ -65,4 +64,4 @@ gcc -o server src/core/server.c src/core/parser.c src/core/n_ary_tree.c src/core
 ./server
 ```
 
-Ardından `frontend/index.html` dosyasını tarayıcınızda açarak arayüzü kullanabilirsiniz.
+Ardından `frontend/index.html` dosyasını tarayıcınızda açarak arayüzü kullanabilirsiniz.
