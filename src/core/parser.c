@@ -74,7 +74,10 @@ DOM* dom_parse(const char* html) {
             }
             // Acilis etiketi
             else {
-                char tag_buf[512];
+                const char* tag_end = strchr(p, '>');
+                if (!tag_end) break;
+                int tag_len = tag_end - p;
+                char* tag_buf = (char*)malloc(tag_len + 1);
                 int i = 0;
                 int self_closing = 0;
                 while (*p && *p != '>') {
@@ -109,6 +112,7 @@ DOM* dom_parse(const char* html) {
                 if (!self_closing) {
                     stack_push(&s, node);
                 }
+                free(tag_buf);
             }
         }
         p++;
@@ -131,7 +135,7 @@ Node* dom_get_by_id(DOM* dom, const char* id) {
 
 // BFS ile class arama
 Node** dom_get_by_class(DOM* dom, const char* class_name, int* count) {
-    Node** result = (Node**)malloc(sizeof(Node*) * 1000);
+    Node** result = (Node**)malloc(sizeof(Node*) * 5000);
     *count = 0;
 
     Queue q;
@@ -174,7 +178,7 @@ void dom_print(Node* root, int level) {
 
 // BFS traversal
 Node** dom_bfs(DOM* dom, int* count) {
-    Node** result = (Node**)malloc(sizeof(Node*) * 1000);
+    Node** result = (Node**)malloc(sizeof(Node*) * 5000);
     *count = 0;
 
     Queue q;
@@ -193,7 +197,7 @@ Node** dom_bfs(DOM* dom, int* count) {
 
 // DFS traversal (iteratif)
 Node** dom_dfs(DOM* dom, int* count) {
-    Node** result = (Node**)malloc(sizeof(Node*) * 1000);
+    Node** result = (Node**)malloc(sizeof(Node*) * 5000);
     *count = 0;
 
     Stack s;

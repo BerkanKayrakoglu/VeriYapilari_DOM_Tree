@@ -3,7 +3,6 @@
 #include <string.h>
 #include "parser.h"
 
-// Yazar: Mustafa Ozturk
 // Ana program - HTTP isteklerini karsilar, DOM agaci olusturur, JSON doner
 
 // DOM agacini JSON formatina donustur

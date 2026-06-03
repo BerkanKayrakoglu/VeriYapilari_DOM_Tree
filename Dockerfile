@@ -16,7 +16,8 @@ RUN gcc -o server \
     src/core/n_ary_tree.c \
     src/core/hash_table.c \
     src/core/stack.c \
-    src/core/queue.c
+    src/core/queue.c \
+    -lpthread
 
 # --- Çalıştırma Aşaması (Runtime Stage) ---
 FROM alpine:latest

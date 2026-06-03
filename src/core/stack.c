@@ -1,7 +1,6 @@
 #include "stack.h"
 #include <stdio.h>
 
-
 // Stack implementasyonu
 
 void stack_init(Stack* s) {

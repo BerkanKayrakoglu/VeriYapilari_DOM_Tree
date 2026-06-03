@@ -7,27 +7,21 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; background: #1e1e1e; color: #d4d4d4; }
-        
         header { background: #007acc; padding: 12px 20px; }
         header h1 { color: white; font-size: 18px; }
-        
         .toolbar { display: flex; gap: 10px; padding: 10px 20px; background: #252526; border-bottom: 1px solid #3c3c3c; align-items: center; }
         .toolbar input { flex: 1; padding: 6px 10px; background: #3c3c3c; border: 1px solid #555; color: #d4d4d4; border-radius: 4px; }
         .toolbar button { padding: 6px 14px; background: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer; }
         .toolbar button:hover { background: #005f9e; }
-
         .panels { display: flex; flex: 1; overflow: hidden; }
-        
         #left-panel { width: 45%; display: flex; flex-direction: column; border-right: 2px solid #3c3c3c; }
         #left-panel h2 { padding: 10px 15px; background: #252526; font-size: 14px; border-bottom: 1px solid #3c3c3c; }
         #html-input { flex: 1; padding: 15px; background: #1e1e1e; color: #9cdcfe; font-family: monospace; font-size: 13px; border: none; resize: none; outline: none; }
         .btn-parse { padding: 10px; background: #007acc; color: white; border: none; cursor: pointer; font-size: 14px; }
         .btn-parse:hover { background: #005f9e; }
-
         #right-panel { flex: 1; display: flex; flex-direction: column; }
         #right-panel h2 { padding: 10px 15px; background: #252526; font-size: 14px; border-bottom: 1px solid #3c3c3c; }
         #tree-container { flex: 1; overflow: auto; padding: 15px; }
-
         .tree-node { margin: 2px 0; }
         .tree-node-header { display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 6px; border-radius: 3px; user-select: none; }
         .tree-node-header:hover { background: #2a2d2e; }
@@ -37,49 +31,228 @@
         .attr-id { color: #9cdcfe; font-family: monospace; font-size: 12px; }
         .attr-class { color: #ce9178; font-family: monospace; font-size: 12px; }
         .tree-children { margin-left: 20px; border-left: 1px solid #3c3c3c; padding-left: 5px; }
-
         #status { padding: 6px 20px; background: #007acc; color: white; font-size: 12px; }
+        #stats-panel { display:none; flex-direction:column; gap:3px; padding:8px 15px; background:#1a1a2e; border-top:1px solid #3c3c3c; font-size:11px; font-family:monospace; }
+        #stats-panel .stats-row { display:flex; gap:20px; flex-wrap:wrap; }
+        #stats-panel span { color:#888; }
+        #stats-panel .stat-key { color:#4ec9b0; }
+        #stats-panel .stat-scroll { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
     </style>
 </head>
 <body>
     <header>
         <h1>🌳 DOM Ağacı Görselleştirici — Veri Yapıları Projesi</h1>
     </header>
-
     <div class="toolbar">
         <input type="text" id="search-input" placeholder='id="header" veya class="container" ile arama yapın...' />
         <button onclick="search()">Ara</button>
         <button onclick="clearHighlight()">Temizle</button>
+        <button onclick="generateHTML()" title="AI servisi ile test verisi uret" style="background:#5a3e8a;">Veri Uret</button>
     </div>
-
     <div class="panels">
         <div id="left-panel">
             <h2>📝 HTML Girdisi</h2>
-            <textarea id="html-input" placeholder="Buraya HTML kodunuzu yapıştırın...">
-<html>
+            <textarea id="html-input" placeholder="Buraya HTML kodunuzu yapıştırın..."><html>
   <head>
     <title></title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"/>
+    <link rel="stylesheet" class="main-style"/>
+    <link rel="stylesheet" class="theme-style"/>
   </head>
-  <body id="main">
-    <div class="container">
-      <h1 id="baslik"></h1>
-      <p class="container"></p>
-    </div>
+  <body id="root" class="page-wrapper">
+    <header id="site-header" class="header sticky">
+      <div id="logo" class="logo-container">
+        <img class="logo-img"/>
+        <span class="logo-text"></span>
+      </div>
+      <nav id="main-nav" class="navbar">
+        <ul class="nav-list">
+          <li class="nav-item active">
+            <a class="nav-link"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"></a>
+            <ul class="dropdown">
+              <li class="dropdown-item"><a class="dropdown-link"></a></li>
+              <li class="dropdown-item"><a class="dropdown-link"></a></li>
+              <li class="dropdown-item"><a class="dropdown-link"></a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button id="search-btn" class="btn icon-btn"></button>
+        <button id="theme-toggle" class="btn icon-btn"></button>
+        <button id="login-btn" class="btn primary-btn"></button>
+      </div>
+    </header>
+    <main id="main-content" class="main-wrapper">
+      <section id="hero" class="section hero-section">
+        <div class="hero-content">
+          <h1 id="hero-title" class="heading primary"></h1>
+          <h2 id="hero-subtitle" class="heading secondary"></h2>
+          <p class="hero-description"></p>
+          <div class="hero-actions">
+            <button id="cta-primary" class="btn primary-btn large"></button>
+            <button id="cta-secondary" class="btn outline-btn large"></button>
+          </div>
+        </div>
+        <div class="hero-media">
+          <img id="hero-img" class="hero-image"/>
+          <div class="hero-badge"></div>
+        </div>
+      </section>
+      <section id="features" class="section features-section">
+        <div class="section-header">
+          <h2 id="features-title" class="heading"></h2>
+          <p class="section-subtitle"></p>
+        </div>
+        <div class="features-grid">
+          <div id="feature-1" class="card feature-card">
+            <div class="card-icon"></div>
+            <h3 class="card-title"></h3>
+            <p class="card-text"></p>
+            <a class="card-link"></a>
+          </div>
+          <div id="feature-2" class="card feature-card">
+            <div class="card-icon"></div>
+            <h3 class="card-title"></h3>
+            <p class="card-text"></p>
+            <a class="card-link"></a>
+          </div>
+          <div id="feature-3" class="card feature-card">
+            <div class="card-icon"></div>
+            <h3 class="card-title"></h3>
+            <p class="card-text"></p>
+            <a class="card-link"></a>
+          </div>
+          <div id="feature-4" class="card feature-card">
+            <div class="card-icon"></div>
+            <h3 class="card-title"></h3>
+            <p class="card-text"></p>
+            <a class="card-link"></a>
+          </div>
+        </div>
+      </section>
+      <section id="stats" class="section stats-section">
+        <div class="stats-container">
+          <div id="stat-1" class="stat-item">
+            <span class="stat-number"></span>
+            <span class="stat-label"></span>
+          </div>
+          <div id="stat-2" class="stat-item">
+            <span class="stat-number"></span>
+            <span class="stat-label"></span>
+          </div>
+          <div id="stat-3" class="stat-item">
+            <span class="stat-number"></span>
+            <span class="stat-label"></span>
+          </div>
+          <div id="stat-4" class="stat-item">
+            <span class="stat-number"></span>
+            <span class="stat-label"></span>
+          </div>
+        </div>
+      </section>
+      <section id="pricing" class="section pricing-section">
+        <div class="section-header">
+          <h2 id="pricing-title" class="heading"></h2>
+          <p class="section-subtitle"></p>
+        </div>
+        <div class="pricing-grid">
+          <div id="plan-basic" class="card pricing-card">
+            <h3 class="plan-name"></h3>
+            <span class="plan-price"></span>
+            <ul class="plan-features">
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+            </ul>
+            <button class="btn outline-btn"></button>
+          </div>
+          <div id="plan-pro" class="card pricing-card featured">
+            <h3 class="plan-name"></h3>
+            <span class="plan-price"></span>
+            <ul class="plan-features">
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+            </ul>
+            <button class="btn primary-btn"></button>
+          </div>
+          <div id="plan-enterprise" class="card pricing-card">
+            <h3 class="plan-name"></h3>
+            <span class="plan-price"></span>
+            <ul class="plan-features">
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+              <li class="plan-feature"></li>
+            </ul>
+            <button class="btn outline-btn"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer id="site-footer" class="footer">
+      <div class="footer-top">
+        <div id="footer-brand" class="footer-brand">
+          <img class="footer-logo"/>
+          <p class="footer-tagline"></p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4 class="footer-col-title"></h4>
+            <ul class="footer-list">
+              <li class="footer-item"><a class="footer-link"></a></li>
+              <li class="footer-item"><a class="footer-link"></a></li>
+              <li class="footer-item"><a class="footer-link"></a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title"></h4>
+            <ul class="footer-list">
+              <li class="footer-item"><a class="footer-link"></a></li>
+              <li class="footer-item"><a class="footer-link"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="copyright" class="copyright"></p>
+        <div class="social-links">
+          <a id="social-twitter" class="social-link"></a>
+          <a id="social-github" class="social-link"></a>
+          <a id="social-linkedin" class="social-link"></a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html></textarea>
             <button class="btn-parse" onclick="parse()">▶ Ağaç Oluştur</button>
         </div>
-
         <div id="right-panel">
             <h2>🌲 DOM Ağacı</h2>
             <div id="tree-container">
                 <p style="color:#888; padding:20px;">HTML girin ve "Ağaç Oluştur" butonuna tıklayın.</p>
             </div>
+            <div id="stats-panel">
+                <div class="stats-row">
+                    <span><span class="stat-key">📊</span> <span id="stat-nodes"></span></span>
+                    <span><span class="stat-key">📏</span> <span id="stat-depth"></span></span>
+                </div>
+                <div class="stat-scroll"><span class="stat-key">BFS →</span> <span id="stat-bfs"></span></div>
+                <div class="stat-scroll"><span class="stat-key">DFS →</span> <span id="stat-dfs"></span></div>
+            </div>
         </div>
     </div>
-
     <div id="status">Hazır</div>
-
     <script src="app.js"></script>
 </body>
 </html>

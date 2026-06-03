@@ -65,4 +65,23 @@ gcc -o server src/core/server.c src/core/parser.c src/core/n_ary_tree.c src/core
 ./server
 ```
 
-Ardından `frontend/index.html` dosyasını tarayıcınızda açarak arayüzü kullanabilirsiniz.
+Ardından `frontend/index.html` dosyasını tarayıcınızda açarak arayüzü kullanabilirsiniz.
+
+---
+
+## 🔌 API Endpointleri
+
+C Backend sunucusu `http://localhost:8080` adresinde aşağıdaki endpointleri sunar:
+
+| Endpoint | Metod | Açıklama | Kullanılan Algoritma |
+|---|---|---|---|
+| `/parse` | POST | HTML metni alır, DOM ağacını JSON olarak döner | Stack tabanlı Parser |
+| `/search` | POST | `type:value\n<html>` formatında arama yapar | `id` → Hash Table O(1), `class` → BFS O(N) |
+| `/analyze` | POST | HTML'i analiz eder; derinlik, düğüm sayısı, BFS/DFS sırası döner | DFS + BFS |
+
+AI Servisi `http://localhost:5001` adresinde:
+
+| Endpoint | Metod | Açıklama |
+|---|---|---|
+| `/health` | GET | Servis durum kontrolü |
+| `/generate?depth=4&width=3` | GET | Parametreli sentetik HTML üretir |
