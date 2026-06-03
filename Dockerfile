@@ -1,13 +1,33 @@
-# C kodlarını derlemek için standart GCC (GNU Compiler Collection) imajını kullanıyoruz
-FROM gcc:latest
+# --- Derleme Aşaması (Build Stage) ---
+FROM alpine:latest AS builder
 
-# Konteyner içindeki çalışma dizinimiz
+# Gerekli derleme araçlarını (gcc, musl-dev) kuruyoruz
+RUN apk add --no-cache gcc musl-dev
+
+WORKDIR /build
+
+# Kaynak kodları kopyalıyoruz
+COPY src /build/src
+
+# C projesini derliyoruz (main.c hariç, çünkü hem main.c hem server.c içerisinde main() fonksiyonu bulunuyor)
+RUN gcc -o server \
+    src/core/server.c \
+    src/core/parser.c \
+    src/core/n_ary_tree.c \
+    src/core/hash_table.c \
+    src/core/stack.c \
+    src/core/queue.c
+
+# --- Çalıştırma Aşaması (Runtime Stage) ---
+FROM alpine:latest
+
 WORKDIR /app
 
-# Projemizdeki src (kaynak) klasörünü Docker'ın içine kopyalayacağız
-# İleride kodlar yazıldığında burayı aktif edeceğiz
-# COPY ./src /app/src
+# Derlenen çalıştırılabilir sunucu dosyasını kopyalıyoruz
+COPY --from=builder /build/server /app/server
 
-# Varsayılan başlatma komutu (Şimdilik sadece çalışıp kapanmaması için bir log atıyoruz)
-# İleride şu olacak: RUN gcc -o dom_tree src/core/*.c
-CMD ["echo", "C Derleyicisi Hazır. Kodlar eklendiğinde derleme yapılacaktır."]
+# HTTP sunucu portunu dışarı açıyoruz
+EXPOSE 8080
+
+# Sunucuyu başlatıyoruz
+CMD ["./server"]
