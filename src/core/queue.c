@@ -1,7 +1,7 @@
 #include "queue.h"
 #include <stdio.h>
 
-
+// Yazar: Hamza Yavas
 // Queue implementasyonu
 
 void queue_init(Queue* q) {

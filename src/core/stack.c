@@ -1,7 +1,7 @@
 #include "stack.h"
 #include <stdio.h>
 
-
+// Yazar: Hamza Yavas
 // Stack implementasyonu
 
 void stack_init(Stack* s) {

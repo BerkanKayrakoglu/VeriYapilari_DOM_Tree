@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
+// Yazar: Hamza Yavas
 // N-ary Tree implementasyonu - DOM agaci
 
 Node* create_node(const char* tag) {
