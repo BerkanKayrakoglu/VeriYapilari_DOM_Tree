@@ -84,3 +84,6 @@ AI Servisi `http://localhost:5001` adresinde:
 |---|---|---|
 | `/health` | GET | Servis durum kontrolü |
 | `/generate?depth=4&width=3` | GET | Parametreli sentetik HTML üretir |
+
+Proje Anlatım Videosu Link:
+https://drive.google.com/drive/u/1/folders/1g594ECCc2nNMwz1XZaB_iLEwDEStk0Om
