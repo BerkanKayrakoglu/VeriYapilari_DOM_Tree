@@ -6,9 +6,8 @@ Bu proje, saf metin halindeki (raw string) bir HTML dokümanını C dilinde ayr�
 
 Bu depo, projenin geliştirme ve takım içi koordinasyon merkezi olarak kullanılmaktadır. Takım üyeleri ve görev dağılımları aşağıda belirtilmiştir:
 
-*   **@bkayr** : Sistem mimarisi, Docker/DevOps süreçleri ve C - Frontend haberleşme altyapısı.
-
-*   **@MstfOzturk16** : Frontend (Kullanıcı Arayüzü) geliştirilmesi ve ayrıştırma (parsing) algoritmalarının entegrasyonu.
+*  Berkan Kayrakoglu (@bkayr) - Sistem Mimarisi, Docker Entegrasyonu, Dökümantasyon ve Cross-Platform Geliştirme
+*  Mustafa Ozturk (@MstfOzturk16) - Temel Veri Yapıları, HTML Ayrıştırıcı (Parser), Arama Algoritmaları ve Kullanıcı Arayüzü (Frontend)
 
 ### 📝 Ara Rapor: Bugüne Kadar Alınan Kararlar ve Gelişmeler
 Proje başlangıcından itibaren takım olarak aşağıdaki kararlar alınmış ve altyapı çalışmaları tamamlanmıştır:
