@@ -1,3 +1,7 @@
+Proje Anlatım Videosu Link:
+https://drive.google.com/drive/u/1/folders/1g594ECCc2nNMwz1XZaB_iLEwDEStk0Om
+
+
 # Veri Yapıları ile HTML'den DOM Ağacı Oluşturma
 
 Bu proje, saf metin halindeki (raw string) bir HTML dokümanını C dilinde ayrıştırarak (parsing) bellekte hiyerarşik bir **DOM (Document Object Model)** ağacına dönüştüren ve üzerinde çeşitli algoritmalar çalıştıran bir sistemdir.
@@ -85,5 +89,3 @@ AI Servisi `http://localhost:5001` adresinde:
 | `/health` | GET | Servis durum kontrolü |
 | `/generate?depth=4&width=3` | GET | Parametreli sentetik HTML üretir |
 
-Proje Anlatım Videosu Link:
-https://drive.google.com/drive/u/1/folders/1g594ECCc2nNMwz1XZaB_iLEwDEStk0Om
