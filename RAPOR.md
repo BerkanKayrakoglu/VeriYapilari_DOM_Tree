@@ -196,3 +196,6 @@ Bu proje sayesinde;
 - Bir mikroservis mimarisinin Docker ortamında asenkron olarak nasıl ayağa kaldırılacağı deneyimlenmiştir.
 - `main` dalı korunarak, takım içi roller ve Git branch/PR mekanizmaları profesyonel standartlarda uygulanmıştır.
 - Code Defense (kod savunması) aşaması için tüm karmaşıklık analizleri ve mimari detaylar dökümante edilerek teorik hazırlık tamamlanmıştır.
+
+- Proje Anlatım Videosu Link:
+- https://drive.google.com/drive/u/1/folders/1g594ECCc2nNMwz1XZaB_iLEwDEStk0Om
